@@ -1,0 +1,21 @@
+<h2>Year End</h2>
+<form method="post" action="/admin/yearend">
+<p><strong>Date:</strong>
+<label for="yearend_d" class="hidden_label">Day:</label><input type="text" id="yearend_d" name="yearend_d" class="day" maxlength="2" value="<?php echo $this->arr_input['yearend_d'] ?>"/> 
+<label for="yearend_m" class="hidden_label">Month</label><input type="text" id="yearend_m"  name="yearend_m" class="month" maxlength="2" value="<?php echo $this->arr_input['yearend_m'] ?>"/>
+<label for="yearend_y" class="hidden_label">Year</label><input type="text" id="yearend_y" name="yearend_y" class="year" maxlength="4" value="<?php echo $this->arr_input['yearend_y'] ?>"/>
+<input type="submit" name="submit" value="Change Date" class="btn" style="margin-top: -9px;" />
+</p>
+</form>
+
+<h3>Reports:</h3>
+<p>The following year end reports are available for download for the selected date period</p>
+<ul>
+	<li><a href="/admin/yearend/?yearend_d=<?php echo $this->arr_input['yearend_d'] ?>&amp;yearend_m=<?php echo $this->arr_input['yearend_m'] ?>&amp;yearend_y=<?php echo $this->arr_input['yearend_y'] ?>&amp;dataset=invoice">Sales</a></li>
+	<li><a href="/admin/yearend/?yearend_d=<?php echo $this->arr_input['yearend_d'] ?>&amp;yearend_m=<?php echo $this->arr_input['yearend_m'] ?>&amp;yearend_y=<?php echo $this->arr_input['yearend_y'] ?>&amp;dataset=purchase">Purchases</a></li>
+
+	<li><a href="/admin/yearend/?yearend_d=<?php echo $this->arr_input['yearend_d'] ?>&amp;yearend_m=<?php echo $this->arr_input['yearend_m'] ?>&amp;yearend_y=<?php echo $this->arr_input['yearend_y'] ?>&amp;dataset=invoiceevent">Sales Paid</a></li>
+	<li><a href="/admin/yearend/?yearend_d=<?php echo $this->arr_input['yearend_d'] ?>&amp;yearend_m=<?php echo $this->arr_input['yearend_m'] ?>&amp;yearend_y=<?php echo $this->arr_input['yearend_y'] ?>&amp;dataset=purchaseevent">Purchases Paid</a></li>
+	
+	<li><a href="/admin/yearend/?yearend_d=<?php echo $this->arr_input['yearend_d'] ?>&amp;yearend_m=<?php echo $this->arr_input['yearend_m'] ?>&amp;yearend_y=<?php echo $this->arr_input['yearend_y'] ?>&amp;dataset=invoice&amp;pdf=1">Export Invoices</a></li>
+</ul>

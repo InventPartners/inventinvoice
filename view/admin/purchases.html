@@ -1,0 +1,86 @@
+
+<div style="width: 400px; float: left">
+	<h2>Purchase Invoices</h2>
+</div>
+<div style="width: 200px; float: right; text-align: right;">
+	<?php if($this->arr_input['status'] == 'processed'){ ?>	
+	<p><a href="/admin/purchases/?status=open" class="button">Show Active Orders</a></p>
+	<?php }  else { ?>
+	<p><a href="/admin/editpurchase/new" class="btn btn-success">New Purchase</a></p>
+	
+	<?php } ?>
+</div>
+<div style="clear: both"></div>
+
+<form method="get" class="form-search">
+	<input type="hidden" name="status" value="<?php echo htmlspecialchars($this->arr_input['status']) ?>" />
+	<input type="text" name="q" value="<?php echo htmlspecialchars($this->arr_input['q']) ?>" class="input-medium search-query" />
+	<input type="submit" name="submit" value="Search" class="btn" />
+</form>
+
+<?php
+$this->getWidget('result_count');
+$this->getWidget('pagination');
+?>
+
+<table class="table table-condensed table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th style="text-align: right">Value</th>
+			<th style="text-align: right">Value Inc</th>
+			<th>Datetime</th>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+<?php
+	$total_ex = 0;
+	$total_inc = 0;
+	for($i=0; $i<count($this->results); $i++){
+		$total_ex += $this->results[$i]['purchase_total'];
+		$total_inc += $this->results[$i]['purchase_total'] + $this->results[$i]['purchase_tax'];
+ ?>
+		<tr <?php if($i % 2 != 0){echo 'class="alt"';} ?>>
+			<td><?php echo $this->results[$i]['purchase_from_company']; ?></td>
+			<td style="text-align: right"><?php echo number_format($this->results[$i]['purchase_total'] , 2); ?></td>
+			<td style="text-align: right"><?php echo number_format($this->results[$i]['purchase_total'] + $this->results[$i]['purchase_tax'], 2); ?></td>
+			<td><?php echo sqlDateTimeToDisplayDate($this->results[$i]['purchase_date']); ?></td>
+			<td style="width: 68px">
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						Action
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<?php if($this->arr_input['status'] == 'paid'){ ?>
+							<li><a href="/admin/purchases/?purchase_unpaid=<?php echo $this->results[$i]['purchase_id']; ?>">Mark as Unpaid</a></li>
+						<?php } else { ?>
+							<li><a href="/admin/purchases/?purchase_paid=<?php echo $this->results[$i]['purchase_id']; ?>">Mark as Paid</a></li>
+						<?php } ?>
+						<li><a href="/admin/purchases/?purchase_void=<?php echo $this->results[$i]['purchase_id']; ?>">Void Purchase</a></li>
+					</ul>
+				</div>
+			</td>
+			<td style="width: 50px"><a href="/admin/editpurchase/<?php echo $this->results[$i]['purchase_id']; ?>" class="btn btn-success">View</a></td>
+		</tr>	
+<?php } ?>	
+
+		<tr <?php if($i % 2 != 0){echo 'class="alt"';} ?>>
+			<td><strong>PAGE TOTAL</strong></td>
+			<td style="text-align: right"><strong><?php echo number_format($total_ex , 2); ?></strong></td>
+			<td style="text-align: right"><strong><?php echo number_format($total_inc , 2); ?></strong></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			
+		</tr>
+	</tbody>		
+</table>	
+
+<?php
+$this->getWidget('pagination');
+?>
+	

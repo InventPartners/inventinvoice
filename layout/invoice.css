@@ -1,0 +1,277 @@
+	#bill_title_wrap{
+		margin:0 0 35px 0;
+	}
+		#bill_title_wrap h2{
+			margin:0px;
+		}
+#sender_info_box{
+	float:right;
+	text-align: right;
+	width:328px;
+}	
+	#sender_info_box img#sender_logo{
+		display:block;
+		width:200px;
+		float:right;
+	}
+	#sender_info_box{
+		float:right;
+	}
+	#sender_info_box h2{
+		margin:0px;
+		text-align: left;
+		float:right;
+	}
+	#sender_info_box p{
+		margin: 0 0 10px 0;
+	}
+	#wrapper #right_column #sender_info_box h2 a{
+		display:block;
+		width:200px;
+		height:92px;
+		background:#ccc;
+		text-indent:-9999px;
+		margin:0px;
+		padding:0px;
+		
+	}
+	#sender_info_box{
+	
+	}
+	
+	#sender_info_box input{
+	
+	}
+	#sender_info_box label{
+	
+	}
+	
+#billing_address_box{
+	width:328px;
+	float:left;
+}
+	#billing_address_box label{
+		display:block;
+	}
+	#billing_address_box textarea{
+		width:100%;
+	}
+	#billing_address_box input{
+		width:220px;
+		margin-bottom: 5px;
+	}
+	#billing_address_box .customer_input_wrap{
+		position:relative;
+	}
+
+	#billing_address_box h3{
+		margin:0px 0 10px 0;
+		padding:0px;
+	}
+	#contactsearchresults{
+		display:none;
+		background:white;
+		width:228px;
+		position: absolute;
+		top:45px;
+		border: 1px solid rgba(82, 168, 236, 0.8);
+		border-top: 1px dashed #ccc;
+		border-radius: 0 0 3px 3px;
+		padding: 6px 0;
+		-moz-border-radius: 0 0 3px 3px;
+		-webkit-border-radius: 0 0 3px 3px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 6px 8px rgba(82,168,236,.6);
+  		-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 6px 8px rgba(82,168,236,.6);
+  		box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 6px 8px rgba(82,168,236,.6);
+	}
+	#contactsearchresults img{
+		margin:0 auto;
+		width:35px;
+		display:block;
+		padding:5px 0 5px 0;
+		text-align: center;
+	}
+		#contactsearchresults p{
+			margin:0px;
+		}
+		#contactsearchresults p a{
+			display:block;
+			padding:5px 10px;
+			color:#666;
+			text-decoration: none;
+		}
+			
+			#contactsearchresults p a:hover{
+				background-color:#f9f9c0;
+			}
+			#contactsearchresults p a.add_new_customer{
+				color:#339900;
+			}
+			#contactsearchresults p a.add_new_customer:hover{
+				background: #cdf5b8;
+			}
+		#billing_address_box div.pain_text_address{
+			margin:0 0 10px 0;
+		}
+				#billing_address_box div.pain_text_address p{
+					margin:0px;
+				}
+/*========== Invoice Generator Table styles ==========*/
+table#invoice{
+	border-collapse: collapse;
+	width:100%;
+	margin-bottom: 15px;
+}
+
+	table#invoice tr th{
+		text-align: left;
+		margin:0px;
+		padding:7px;
+		font-size: 13px;
+    	height: 18px;
+    	line-height: 18px;
+		border-right:1px solid #ccc;
+		color:#333;
+	}
+	table#invoice tr td{
+		text-align: right;
+		width:70px;
+		border:1px solid #ccc;
+		padding:5px;
+		vertical-align: top;
+		color: #555555;
+	    font-size: 13px;
+    	height: 18px;
+    	line-height: 18px;
+	}
+	
+	table#invoice thead {
+		padding:5px;
+		background:#eee;
+	}
+		table#invoice tr{
+			border:1px solid #ccc;
+		}
+			table#invoice thead tr td{
+				color:#666;
+				padding:7px;
+			}
+	
+	table#invoice input ,
+	table#invoice textarea.desc {
+		margin: 0px;
+		border: 0;
+		
+  		-webkit-border-radius: 0;
+ 		-moz-border-radius: 0;
+  		border-radius: 0;
+  
+		-webkit-box-shadow: 0;
+		-moz-box-shadow: 0;
+		box-shadow: none;
+		-webkit-transition: none;
+		-moz-transition: none;
+		-ms-transition: none;
+		-o-transition: none;
+		transition: none;
+	}
+	
+	table#invoice input.total{
+		height: 20px;
+		padding: 0 0 20px 0;
+		vertical-align: top;
+		color: #666;
+	}
+	table#invoice textarea.desc{
+		width: 100%;
+		height: 40px;
+		padding: 0px;
+		resize: none;
+	}
+	
+	table#invoice tr td.description_cell{
+		text-align: left;
+		width:450px;
+	}
+	table#invoice tr td input{
+		width:100%;
+		text-align: right;
+	}
+	table#invoice tr td.description_cell input{
+		text-align: left;
+	}
+	table#invoice thead.totals tr{
+		background: #FFFFFF;
+	}
+	table#invoice thead.totals tr td{
+		color:#333;
+		text-align: right;
+		padding:7px;
+		font-weight: bold;
+	}
+
+
+/*========== Invoice List styles ==========*/
+table#invoice_list{
+	width:100%;
+}
+table#invoice_list thead tr th{
+	text-align: left;
+	padding:7px;
+}
+table#invoice_list thead tr th.reference{
+	width:100px;
+}
+table#invoice_list tbody tr.paid{
+	background:#edecec;	
+}
+table#invoice_list tbody tr.outstanding{
+	background:#cbeff9;
+}
+table#invoice_list tbody tr.overdue{
+	background:#fcd5d5;
+}
+table#invoice_list tbody tr td a{
+	color:#666;
+	text-decoration: none;
+}
+
+
+#otheractions {
+	float: right;
+	width: 100px;
+}
+#buttons_box{
+
+}
+	#buttons_box ul{
+		display:block;
+		float:right;
+		padding:0px;
+	}
+	#buttons_box ul li{
+		float:left;
+		display:block;
+		padding:0px;
+		margin:0 0 0 10px;
+	}
+		#buttons_box ul li input{
+		
+		}
+		#buttons_box ul li #buttons_box ul li #buttons_box ul li input:hover{
+			background:#999;
+			color:white;
+			cursor:pointer;
+		}		
+#buttons_box label.invoice_paid{
+	margin:0 10px 0 0;
+}
+#buttons_box span input#invoice_paid{
+	margin:0 7px 0 0px;
+	border:none;
+}
+span.invoice_paid_wrap{
+	float:right;
+	font-size:.89em;
+	font-weight: bold;
+}

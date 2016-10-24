@@ -1,0 +1,66 @@
+form {
+	padding: 0;
+	margin: 0;
+}
+
+
+/*
+input, textarea , select{
+	padding:3px;
+	border:1px solid #ccc;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 16px;
+	color: #666;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	margin: 0 0 6px 0;
+}
+*/
+/*
+input:focus , textarea:focus , input.ieinputfocus , textarea.ieinputfocus{
+	border:1px dashed #cc0000!important;
+}
+*/
+	
+label{
+	margin: 2px 0 0;
+	font-size: 13px;
+	color: #999999;
+}
+label.hidden_label{
+	display:none;
+}
+input.day{
+	width:30px;
+}
+input.month{
+	width:30px;
+}
+input.year{
+	width:50px;
+}
+input.bill_reference{
+	width:100px;
+}
+
+.stdform label {
+	display: block;
+	clear: left;
+}
+.stdform input , #editform select , #editform textarea {
+	width: 300px;
+	display: block;
+	clear: left;
+}
+.stdform textarea {
+	height: 200px;
+}
+.stdform .submit {
+	margin-top: 10px;
+}
+
+.formcol {
+	width: 320px;
+	float: left;
+}

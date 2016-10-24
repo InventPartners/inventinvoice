@@ -1,0 +1,38 @@
+#login {
+	width: 360px;
+	padding: 20px;
+	margin: 150px auto 0;
+	border: 4px solid #525252;
+	border-radius: 4px;
+	background: #fff;
+}
+
+#login h2 {
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+
+#login p {
+	margin-bottom: 10px;
+}
+
+#login input {
+	width: 98%;
+	padding: 1%;
+	margin-bottom: 5px;
+	border: 1px solid #000;
+}
+
+#login .submit {
+	background: #ff8644;
+	border: none;
+	width: auto;
+	padding: 4px 7px;
+	margin-top: 5px;
+	color: #fff;
+}
+
+#login .submit:hover {
+	cursor: pointer;
+	background: #fda575;
+}

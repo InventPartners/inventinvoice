@@ -1,0 +1,129 @@
+				    <script type="text/javascript">
+						var vat_rate = 0
+					</script>
+					<form method="post" action="<?php echo $this->submit_action?>">
+					<input type="hidden" name="save" value="save" />
+					<h2>Repeat Invoice</h2>
+					<div id="sender_info_box">
+						<p><strong>Next Invoice Date:</strong>
+							<?php 
+								$date_array = explode('-' , $this->repeatinvoice->filedata['next_date']);
+							?>
+							<label for="next_date_d" class="hidden_label">Day:</label><input type="text" id="next_date_d" name="next_date_d" class="day" maxlength="2" value="<?php echo $date_array[2]?>"/> 
+							<label for="next_date_m" class="hidden_label">Month</label><input type="text" id="next_date_m"  name="next_date_m" class="month" maxlength="2" value="<?php echo $date_array[1]?>"/>
+							<label for="next_date_y" class="hidden_label">Year</label><input type="text" id="next_date_y" name="next_date_y" class="year" maxlength="4" value="<?php echo $date_array[0]?>"/>
+						</p>
+						<p><strong>Last Invoice:</strong> <?php 
+						if($this->repeatinvoice->filedata['last_invoice_id']) {
+							echo '<a href="/admin/invoice/' . $this->repeatinvoice->filedata['last_invoice_id'] . '">';
+							echo htmlspecialchars($this->repeatinvoice->filedata['last_invoice_id']); 
+							echo '</a>';
+						} else {
+							echo 'not previously invoiced';
+						} 
+						?></p>
+						<p>
+							<label>Repeat Period</label>
+							<select name="repeat_period">
+							<?php foreach($this->repeat_options as $option){ ?>
+							<option value="<?php echo $option['value'] ?>"<?php
+							if($option['value'] == $this->repeatinvoice->filedata['repeat_period']){
+								echo ' selected="selected"';
+							}
+							?>><?php echo $option['caption'] ?></option>
+							<?php } ?>
+							</select>
+						</p>
+					</div>
+					<div id="billing_address_box">
+						<div class="customer_input_wrap">
+							<label>Customer</label>
+							<input type="hidden" name="contact_id" id="contact_id" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_id'])?>" />
+							<input type="text" name="invoice_to_company" id="invoice_company" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_company'])?>"  onKeyUp="quickContactSearch()" autocomplete="off" />
+							<div id="contactsearchresults">
+							</div>
+						</div>
+					
+						
+						<div id="ccol1">
+							<label>Address</label>
+							<input type="text" name="invoice_to_address1" id="invoice_address1" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_address1'])?>" />
+							<input type="text" name="invoice_to_address2" id="invoice_address2" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_address2'])?>" />
+							<input type="text" name="invoice_to_address3" id="invoice_address3" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_address3'])?>" />
+							<input type="text" name="invoice_to_address4" id="invoice_address4" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_address4'])?>" />
+							<input type="text" name="invoice_to_address5" id="invoice_address5" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_address5'])?>" />
+						</div>
+						<div id="ccol2">
+							<label>Postcode</label>
+							<input type="text" name="invoice_to_postcode" id="invoice_postcode" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_postcode'])?>" />
+							<label>Country</label>
+							<input type="text" name="invoice_to_country_code" id="invoice_country" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['country_code'])?>" />
+							<label>VAT Number</label>
+							<input type="text" name="invoice_to_vatnumber" id="invoice_vatnumber" value="<?php echo htmlspecialchars($this->repeatinvoice->filedata['contact_vatnumber'])?>" />
+						</div>
+						<!--<textarea rows="5" cols="15"></textarea></strong></p>
+						<div class="pain_text_address">
+							<p>3 Dean Close<br/>
+							Wrenthorpe<br/>
+							Wakefield<br/>
+							WF2 0JX</p>
+						</div>
+						-->
+					</div>
+					
+					
+					<div class="clear"></div>
+					<table class="invoice" id="invoice">
+						<thead>
+							<tr>
+								<th>Description</th>
+								<th>Total</th>
+								<!--
+								<th class="vat">VAT</th>
+								<th>Total Inc</th>
+								-->
+							</tr>
+						</thead>
+						<tbody><?php
+							$item_count = 1;
+							for($i=0; $i<count($this->repeatinvoice->items); $i++){
+								echo '
+									<tr>
+										<td class="description_cell"><textarea name="itemkey_' . $item_count . '" class="desc" rows="1" cols="15">' . htmlspecialchars($this->repeatinvoice->items[$i]['description']) . '</textarea></td>
+										<td><input name="item_' . $item_count . '_total" class="total" value="' . number_format($this->repeatinvoice->items[$i]['unit_price'] , 2) . '"></input></td>
+									</tr>
+								';
+								$item_count ++;
+							}
+							echo '
+								<tr>
+									<td class="description_cell"><textarea name="itemkey_' . $item_count . '" class="desc" rows="1" cols="15"></textarea></td>
+									<td><input name="item_' . $item_count . '_total" class="total" value=""></input></td>
+								</tr>
+							';
+						?>
+						</tbody>
+						<thead class="totals">
+							<tr>
+								<td>Total</td>
+								<td id="total"></td>
+								<!--
+								<td id="taxtotal"></td>
+								<td id="invoicetotalplustax"></td>
+								-->
+							</tr>
+						</thead>
+					</table>
+
+					<div class="clear"></div>
+					
+					<div id="buttons_box">
+						<ul>
+							<li><input type="submit" name="repeat" value="Repeat Now" class="submit greenbtn"/></li>
+							<li><input type="submit" value="Save" class="submit greenbtn"/></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+					
+				</form>

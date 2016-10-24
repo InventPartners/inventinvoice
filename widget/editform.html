@@ -1,0 +1,55 @@
+<form action="<?php echo $this->submit_action?>" method="post" class="stdform">
+	<input type="hidden" name="save" value="save" />
+	<?php
+
+	for($i=0; $i<count($this->editform_fields); $i++){
+	
+		if($this->editform_fields[$i]['Field'] == $this->editform_table . '_status' || $this->editform_fields[$i]['Field'] == 'updated' || $this->editform_fields[$i]['Field'] == 'created'){
+			
+		} else {
+	
+			// Field caption
+			if(isset($this->editform_fields[$i]['caption'])){
+				$caption = $this->editform_fields[$i]['caption'];
+			} else {
+				$caption_array = explode("_" , $this->editform_fields[$i]['Field']);
+				$caption = '';
+				for($c=0; $c<count($caption_array); $c++){
+					$caption .= ucfirst($caption_array[$c]) . ' ';
+				}
+				$caption = trim($caption);
+			}
+			echo '<label>' . htmlspecialchars($caption) . '</label>';
+			
+			if(isset($this->editform_fields[$i]['selectoptions'])) {
+				echo '<select name="' . htmlspecialchars($this->editform_fields[$i]['Field']) . '">';
+				for($o=0; $o<count($this->editform_fields[$i]['selectoptions']); $o++){
+					echo '<option value="' . htmlspecialchars($this->editform_fields[$i]['selectoptions'][$o]['value']) . '"';
+					if($this->editform_fields[$i]['selectoptions'][$o]['value'] == $this->editform_filedata[$this->editform_fields[$i]['Field']]){
+						echo ' selected="selected"';
+					}
+					echo '>';
+					echo htmlspecialchars($this->editform_fields[$i]['selectoptions'][$o]['caption']);
+					echo '</option>';
+				}
+				echo '</select>';		
+			} else if($this->editform_fields[$i]['Type'] == 'longtext') {
+				echo '<textarea name="' . htmlspecialchars($this->editform_fields[$i]['Field']) . '">';
+				echo htmlspecialchars($this->editform_filedata[$this->editform_fields[$i]['Field']]);
+				echo '</textarea>';
+			
+			} else {
+				echo '<input type="text" id="form_' . htmlspecialchars($this->editform_fields[$i]['Field']) . '" name="' . htmlspecialchars($this->editform_fields[$i]['Field']) . '" value="' . htmlspecialchars($this->editform_filedata[$this->editform_fields[$i]['Field']]) .'"/>';
+				if($this->editform_fields[$i]['Type'] == 'image'){
+					echo '<a href="/admin/fileselector/?fieldname=form_' . $this->editform_fields[$i]['Field'] . '&KeepThis=true&TB_iframe=true&height=400&width=600&modal=true" class="thickbox button">Browse/Upload</a>';
+				}
+			}
+			
+		}
+	}
+	
+?>
+<div>
+<input type="submit" name="submit" value="Save" class="submit" /> 
+</div>
+</form>

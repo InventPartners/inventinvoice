@@ -1,0 +1,121 @@
+<link rel="stylesheet" type="text/css" href="/scripts/jqplot/jquery.jqplot.min.css" />
+
+<script type="text/javascript" src="/scripts/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="/scripts/jqplot/plugins/jqplot.trendline.min.js"></script>
+
+<h2>Reports</h2>
+<?php if(count($this->plots) > 1){ ?>
+<p>Last Month</p>
+<div id="chart1" style="height:300px; width:650px;"></div>
+<p>Last 12 Months</p>
+<div id="chart2" style="height:300px; width:650px;"></div>
+<script class="code" type="text/javascript">
+$(document).ready(function(){ 
+  
+  	$.jqplot.config.enablePlugins = true;
+
+	var l1 = [<?php
+		for($i=0; $i<count($this->plots); $i++){
+			if($i>0){
+				echo ' , ';
+			}
+			echo '[';
+			echo "'" . $this->plots[$i]['caption'] . "' , ";
+			echo $this->plots[$i]['value'];
+			echo ']';
+		}
+	?>];
+
+	var l2 = [<?php
+		for($i=0; $i<count($this->plots2); $i++){
+			if($i>0){
+				echo ' , ';
+			}
+			echo '[';
+			echo "'" . $this->plots2[$i]['caption'] . "' , ";
+			echo $this->plots2[$i]['value'];
+			echo ']';
+		}
+	?>];   
+	
+	var plot1 = $.jqplot ('chart1', [l1,l2] , {
+		animate: true,
+        axes: {
+            xaxis: {
+            	renderer: $.jqplot.DateAxisRenderer,
+                label: 'Date',          
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+				tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+				tickOptions: {
+					// labelPosition: 'middle',
+					angle: -30
+				}
+            },
+            yaxis: {
+            	min: 0,
+                autoscale:true,
+                label: 'Amount',
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+            }
+        }
+	});
+	
+	
+	
+
+	var l3 = [<?php
+		for($i=0; $i<count($this->plots3); $i++){
+			if($i>0){
+				echo ' , ';
+			}
+			echo '[';
+			echo "'" . $this->plots3[$i]['caption'] . "' , ";
+			echo $this->plots3[$i]['value'];
+			echo ']';
+		}
+	?>];
+
+	var l4 = [<?php
+		for($i=0; $i<count($this->plots4); $i++){
+			if($i>0){
+				echo ' , ';
+			}
+			echo '[';
+			echo "'" . $this->plots4[$i]['caption'] . "' , ";
+			echo $this->plots4[$i]['value'];
+			echo ']';
+		}
+	?>];   
+	
+	var plot2 = $.jqplot ('chart2', [l3,l4] , {
+		animate: true,
+        axes: {
+            xaxis: {
+            	renderer: $.jqplot.DateAxisRenderer,
+                label: 'Date',          
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+				tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+				tickOptions: {
+					// labelPosition: 'middle',
+					angle: -30
+				}
+            },
+            yaxis: {
+            	min: 0,
+                autoscale:true,
+                label: 'Amount',
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+            }
+        }
+	});
+	
+});
+</script>
+<?php } else { ?>
+<p>No reporting data available</p>
+<?php } ?>

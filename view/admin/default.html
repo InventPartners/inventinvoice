@@ -1,0 +1,12 @@
+<h2>Admin Panel</h2>
+<p>Welcome to the admin panel.</p>
+
+<?php if($this->repeatinvoicesdue > 0) { ?>
+<p><a href="/admin/repeatinvoices/?status=due">
+<?php if($this->repeatinvoicesdue > 1) { ?>
+There are <?php echo $this->repeatinvoicesdue ?> invoices due for repeating today.
+<?php } else { ?>
+There is one invoice due for repeating today.
+<?php } ?>
+</a></p>
+<?php } ?>
