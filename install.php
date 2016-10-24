@@ -6,13 +6,15 @@
 // username
 // password
 
+// As user for their admin username and password
+
 // Test DB credentials
 
 // Run database import
 
-// Create a  config file, using THIS template.
+// Create admin username and password
 
-// Output the config file, and instruct the user where to save it.
+// Create a  config file, using THIS template.
 /*
 define('INSTALL_ROOT' , '');
 define('APP_PATH' , INSTALL_ROOT);
@@ -25,6 +27,8 @@ define('DB_NAME' , '');
 define('DB_USER' , '');
 define('DB_PASS' , '');
 */
+
+// Output the config file, and instruct the user where to save it.
 
 
 ?>
