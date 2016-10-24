@@ -18,8 +18,7 @@ class AccountController extends InvController{
 	public function doController(){
 	
 		$this->account = $this->obj_db->getFileModel('account');
-		$accountdata = $this->obj_session->getValue('accountdata');
-		if($this->account->open($accountdata['id'])){
+		if($this->account->open(1)){
 			$this->submit_action = '/admin/account/' . $this->account->id;
 			// Are we saving some data
 			if($this->arr_input['save']){

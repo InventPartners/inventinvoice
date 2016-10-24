@@ -23,7 +23,7 @@ class UserController extends InvController{
 		$this->password_updated = false;
 		$this->password_error = false;
 		
-		$this->contact = $this->obj_session->obj_userdb->getFileModel('user');
+		$this->contact = $this->obj_session->obj_db->getFileModel('user');
 		$userdata = $this->obj_session->getValue('userdata');
 		if($this->contact->open($userdata['user_id'])) {
 			$this->submit_action = '/admin/contact/' . $this->contact->filedata['user_id'];
