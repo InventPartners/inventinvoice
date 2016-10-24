@@ -2,11 +2,9 @@
 
 class InvSession{
 
-	var $obj_userdb;
 	var $obj_db;
 
-	public function __construct($obj_userdb , $obj_db){
-		$this->obj_userdb = &$obj_userdb;
+	public function __construct($obj_db , $obj_db){
 		$this->obj_db = &$obj_db;
 		if($this->getValue('username') && $this->getValue('password')){
 			$this->login($this->getValue('username') , $this->getValue('password'));
@@ -56,19 +54,14 @@ class InvSession{
     			  AND `user`.`status` = "active"
     			  AND `user_account`.`status` = "active"';
     	$params_array = array($username , $password);
-    	if($this->obj_userdb->prepareAndDoQuery($query , $params_array)){
-    		if(count($this->obj_userdb->result_set) == 1){
-    			if($this->loadAccountsDB($this->obj_userdb->result_set[0]['account_name'])) {
-					$this->setValue('userdata' , $this->obj_userdb->result_set[0]);
-					$this->setValue('username' , $username);
-					$this->setValue('password' , $password);
-					$this->setValue('is_logged_in' , 1);
-					$this->setvalue('is_admin' , $this->obj_userdb->result_set[0]['is_admin']);
-					return true;
-				} else {
-    				$this->logout();
-					return false;
-				}
+    	if($this->obj_db->prepareAndDoQuery($query , $params_array)){
+    		if(count($this->obj_db->result_set) == 1){
+				$this->setValue('userdata' , $this->obj_db->result_set[0]);
+				$this->setValue('username' , $username);
+				$this->setValue('password' , $password);
+				$this->setValue('is_logged_in' , 1);
+				$this->setvalue('is_admin' , $this->obj_db->result_set[0]['is_admin']);
+				return true;
     		} else {
     			$this->logout();
     			return false;
@@ -101,8 +94,8 @@ class InvSession{
     			  AND `user`.`password` = PASSWORD(?)
     			  AND `user`.`status` = "active"';
     	$params_array = array($this->getValue('username') , $password);
-    	if($this->obj_userdb->prepareAndDoQuery($query , $params_array)){
-    		if(count($this->obj_userdb->result_set) == 1){
+    	if($this->obj_db->prepareAndDoQuery($query , $params_array)){
+    		if(count($this->obj_db->result_set) == 1){
     			return true;
     		} else {
     			return false;
@@ -114,8 +107,6 @@ class InvSession{
     }
     
     protected function loadAccountsDB($account){
-    
-    	$this->obj_db->connect($account);
     	
     	$query = 'SELECT * FROM account';
     	$params_array = array();

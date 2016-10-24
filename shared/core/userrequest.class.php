@@ -18,9 +18,7 @@ class UserRequest{
 	*/
 		// Invoice Database
 		$this->obj_db = new InvDB();
-		// User database
-		$this->obj_userdb = new InvDB();
-		$this->obj_userdb->connect(USER_DB);
+		$this->obj_db->connect(DB_NAME);
 		// Session
 		$this->obj_session = new InvSession($this->obj_userdb , $this->obj_db);
 		return true;
