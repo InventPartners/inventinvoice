@@ -1,7 +1,14 @@
 <?php
 
-//define('INSTALL_ROOT' , '/var/www/html/invoice/');
-define('INSTALL_ROOT' , '/Users/mattbradley/Documents/Clients/Invent Invoice/inventinvoice/trunk/');
-define('APP_PATH' , INSTALL_ROOT . 'site/admin/');
+define('INSTALL_ROOT' , '');
+define('APP_PATH' , INSTALL_ROOT);
+
+define('SITE_DOMAIN' , '');
+define('SHARED_PATH' , INSTALL_ROOT . 'shared/');
+
+define('DB_HOST' , '');
+define('DB_USER' , '');
+define('DB_PASS' , '');
+define('USER_DB' , '');
 
 ?>
