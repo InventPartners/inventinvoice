@@ -39,6 +39,27 @@ define('DB_PASS' , '');
 
 define('SQL_DUMP_FILE', 'db.sql');
 define('CONFIG_FILE_PATH', 'config/config.inc.php');
+if(is_file(CONFIG_FILE_PATH)){
+	echo'<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Invent Invoice Installer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container" style="max-width: 700px;">
+        
+        <div class="page-header">
+            <h1 class="text-center">Invent Invoice Installer</h1>  
+        </div>
+        <div class="alert alert-danger">
+        	Invent invoice is already installed!
+        </div>
+    </div>
+</body>';
+	exit;
+}
 
 function get_install_root() {
     $abs_path = __FILE__;
@@ -148,7 +169,7 @@ if(!empty($_POST)) {
                 }
                 
                 // import worked - add admin user
-                if($stmt = $conn->prepare("INSERT INTO user (username, password) VALUES (?, PASSWORD(?))")) {
+                if($stmt = $conn->prepare("INSERT INTO user (username, password, is_admin) VALUES (?, PASSWORD(?),1)")) {
                     
                     if($stmt->bind_param("ss", $input_vals['admin_user'], $input_vals['admin_pwd'])) {
                         if($stmt->execute()) {
@@ -165,9 +186,12 @@ if(!empty($_POST)) {
                             array_push($config, 'define(\'DB_USER\' , \'' . $input_vals['database_user'] . '\');');
                             array_push($config, 'define(\'DB_PASS\' , \'' . $input_vals['database_pwd'] . '\');');
                                 
-                            $fp = fopen(CONFIG_FILE_PATH, 'w');
-                            fwrite($fp, join(chr(13), $config));
-                            fclose($fp);
+                            if($fp = fopen(CONFIG_FILE_PATH, 'w')){
+                            	fwrite($fp, join(chr(13), $config));
+                            	fclose($fp);
+                            } else {
+                            
+                            }
                             
                             $view = 'install_complete';
                             
@@ -263,7 +287,7 @@ if(!empty($_POST)) {
         
         <?php elseif($view == 'install_complete'): ?>
         <div class="alert alert-success">
-            <strong>Install complete!</strong> You may now <a href="application.php">log in</a> with the admin account you just created.
+            <strong>Install complete!</strong> You may now <a href="/admin">log in</a> with the admin account you just created.
         </div>        
         <?php endif; ?>
 

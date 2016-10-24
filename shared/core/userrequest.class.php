@@ -62,7 +62,6 @@ class UserRequest{
 	
 	protected function loadController($base_path , $controller_suffix , $controller_name_suffix){
 
-		
 		$this->path = $base_path;
 		$auth_path = '/';
 		$view_path = '';
@@ -75,6 +74,7 @@ class UserRequest{
 				array_shift($this->request_array);
 			} else {
 				redirectRequest('/login');
+				exit;
 			}
 		}
 

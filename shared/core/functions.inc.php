@@ -4,8 +4,8 @@
 
 function redirectRequest($path){
 	global $_SERVER;
-	//header('Location:http://' . $_SERVER['HTTP_HOST'] . $path);
-	header('Location:' . SITE_DOMAIN . $path);
+	header('Location:http://' . $_SERVER['HTTP_HOST'] . $path);
+	exit;
 }
 
 function sqlDateTimeToDisplayDate($datetime){

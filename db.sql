@@ -44,6 +44,9 @@ CREATE TABLE `account` (
   KEY `country_code` (`country_code`),
   CONSTRAINT `account_ibfk_1` FOREIGN KEY (`taxcode_id`) REFERENCES `taxcode` (`taxcode_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `account` (`id`, `account_firstname`, `account_lastname`, `account_company`, `account_address1`, `account_address2`, `account_address3`, `account_address4`, `account_address5`, `account_postcode`, `country_code`, `account_vatnumber`, `account_email`, `taxcode_id`, `updated`)
+VALUES
+	(1, '', '', '', '', '', '', '', '', '', 'GB', '', '', 1, NOW());
 
 
 
