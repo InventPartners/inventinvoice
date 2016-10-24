@@ -11,11 +11,7 @@ class UserRequest{
 	public $obj_controller;
 
 	public function __construct(){
-	
-	/*
-		$this->obj_db = new InvDB;
-		$this->obj_db->connect();
-	*/
+
 		// Invoice Database
 		$this->obj_db = new InvDB();
 		$this->obj_db->connect(DB_NAME);
@@ -27,7 +23,7 @@ class UserRequest{
 	// We use the server request URI to find out what the user wanted to do.
 	// loads the correct controller	
 	public function handleRequest(){
-
+		
 		// Is there a login to do?
 		if(isset($_POST['username']) && isset($_POST['password'])){
 			$this->obj_session->login($_POST['username'] , $_POST['password']);
@@ -53,7 +49,7 @@ class UserRequest{
 				array_shift($this->request_array);
 				// Ajax request are handled here
 				require_once(SHARED_PATH . 'ajax/ajaxcontroller.class.php');
-				$this->loadController(AJAX_PATH , '.ajaxcontroller.class.php' , 'AjaxController');
+				//$this->loadController(AJAX_PATH , '.ajaxcontroller.class.php' , 'AjaxController');
 			} else {
 				$this->loadController(CONTROLLER_PATH , '.controller.class.php' , 'Controller');
 			}
@@ -65,6 +61,8 @@ class UserRequest{
 	}
 	
 	protected function loadController($base_path , $controller_suffix , $controller_name_suffix){
+
+		
 		$this->path = $base_path;
 		$auth_path = '/';
 		$view_path = '';
@@ -77,7 +75,6 @@ class UserRequest{
 				array_shift($this->request_array);
 			} else {
 				redirectRequest('/login');
-				exit;
 			}
 		}
 

@@ -1,5 +1,10 @@
 <?php
 
+/*
+NOTE: It would be a VERY GOOD IDEA (tm) to check that database is not already installed 
+(ie, check that there sin't already a config file) before running any of this
+*/
+
 // ask the user for their database details:
 // Hostname
 // database name
@@ -11,6 +16,7 @@
 // Test DB credentials
 
 // Run database import
+
 
 // Create admin username and password
 

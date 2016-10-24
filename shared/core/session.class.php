@@ -47,12 +47,10 @@ class InvSession{
     }
     
     public function login($username , $password){
-    	$query = 'SELECT * FROM `user` , `user_account` 
-    			  WHERE `user`.`user_id` = `user_account`.`user_id`
-    			  AND `user`.`username` = ? 
+    	$query = 'SELECT * FROM `user` 
+    			  WHERE `user`.`username` = ? 
     			  AND `user`.`password` = PASSWORD(?)
-    			  AND `user`.`status` = "active"
-    			  AND `user_account`.`status` = "active"';
+    			  AND `user`.`status` = "active"';
     	$params_array = array($username , $password);
     	if($this->obj_db->prepareAndDoQuery($query , $params_array)){
     		if(count($this->obj_db->result_set) == 1){
@@ -104,25 +102,6 @@ class InvSession{
 			return false;
     	}
     
-    }
-    
-    protected function loadAccountsDB($account){
-    	
-    	$query = 'SELECT * FROM account';
-    	$params_array = array();
-    	if($this->obj_db->prepareAndDoQuery($query , $params_array)){
-    		if(count($this->obj_db->result_set) == 1){
-    			$this->setValue('accountdata' , $this->obj_db->result_set[0]);
-    			return true;
-    		} else {
-    			$this->logout();
-    			return false;
-    		}
-    	} else {
-    		$this->logout();
-			return false;
-    	}
-    	
     }
 
 }

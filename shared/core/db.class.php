@@ -28,6 +28,9 @@ class InvDB extends PDO{
         	$this->db = parent::__construct( $dsn, $this->user, $this->pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
         	return true;
         } catch (PDOException $e) {
+        	echo 'Cannot open database connection';
+        	error_log('inventinvoice: cannot open database connection');
+        	error_log(print_r($e , true));
         	exit;
         }
     }
@@ -67,11 +70,10 @@ class InvDB extends PDO{
     	$this->bindParamArray($params_array); 
     	if($this->preparedquery->execute()){
     		$this->getResultFromPreparedQuery();
-			//var_dump($this->preparedquery);
     		return true;
     	} else {
-			//var_dump($this->preparedquery);
-    		//print_r($this->preparedquery->errorInfo());
+    		error_log(print_r($this->preparedquery->errorInfo() , true));
+			error_log(print_r($this->preparedquery , true));
     		return false;
     	}
     }
