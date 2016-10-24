@@ -11,9 +11,12 @@ class YearendController extends InvController{
 	}
 	
 	protected function setInputValues(){
-		$this->setInputValue('yearend_d');
-		$this->setInputValue('yearend_m');
-		$this->setInputValue('yearend_y');
+		$this->setInputValue('yearend_from_d');
+		$this->setInputValue('yearend_from_m');
+		$this->setInputValue('yearend_from_y');
+		$this->setInputValue('yearend_to_d');
+		$this->setInputValue('yearend_to_m');
+		$this->setInputValue('yearend_to_y');
 		$this->setInputValue('dataset');
 		$this->setInputValue('pdf');
 	}
@@ -21,7 +24,7 @@ class YearendController extends InvController{
 	public function doController(){
 	
 		//Fetching data?
-		if($this->arr_input['yearend_d'] && $this->arr_input['yearend_m'] && $this->arr_input['yearend_y']){
+		if($this->arr_input['yearend_from_d'] && $this->arr_input['yearend_from_m'] && $this->arr_input['yearend_from_y'] && $this->arr_input['yearend_to_d'] && $this->arr_input['yearend_to_m'] && $this->arr_input['yearend_to_y']){
 		
 			if($this->arr_input['dataset']) {
 		
@@ -65,12 +68,12 @@ class YearendController extends InvController{
 				
 				$list->num_results_per_page = 20000;
 				
-				$thisyear = mktime(0, 0, 0, date($this->arr_input['yearend_m']), date($this->arr_input['yearend_d']),   date($this->arr_input['yearend_y']));
-				$lastyear = mktime(0, 0, 0, date($this->arr_input['yearend_m']), date($this->arr_input['yearend_d']),   date($this->arr_input['yearend_y'])-1);
+				$from = mktime(0, 0, 0, date($this->arr_input['yearend_from_m']), date($this->arr_input['yearend_from_d']),   date($this->arr_input['yearend_from_y']));
+				$to = mktime(0, 0, 0, date($this->arr_input['yearend_to_m']), date($this->arr_input['yearend_to_d']),   date($this->arr_input['yearend_to_y'])-1);
 				
 				$params_array = array();
-				$params_array[] = date('Y-m-d' , $lastyear);
-				$params_array[] = date('Y-m-d' , $thisyear);
+				$params_array[] = date('Y-m-d' , $from);
+				$params_array[] = date('Y-m-d' , $to);
 				
 				$list->getList($where , $params_array , $order, 1);
 				//$this->results = $orderlist->resultset;
@@ -93,9 +96,12 @@ class YearendController extends InvController{
 			
 		} else {
 		
-			$this->arr_input['yearend_d'] = date('d');
-			$this->arr_input['yearend_m'] = date('m'); 
-			$this->arr_input['yearend_y'] = date('Y');
+			$this->arr_input['yearend_from_d'] = date('d');
+			$this->arr_input['yearend_from_m'] = date('m'); 
+			$this->arr_input['yearend_from_y'] = date('Y') - 1;
+			$this->arr_input['yearend_to_d'] = date('d');
+			$this->arr_input['yearend_to_m'] = date('m'); 
+			$this->arr_input['yearend_to_y'] = date('Y');
 		
 		}
 		
