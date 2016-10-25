@@ -33,7 +33,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('purchase');
 					
 					$where = 'WHERE `purchase`.`purchase_status` != \'void\'';
-					$where .= 'AND `purchase`.`purchase_date` >= ? AND `purchase`.`purchase_date` <= ?';
+					$where .= 'AND DATE(`purchase`.`purchase_date`) >= ? AND DATE(`purchase`.`purchase_date`) <= ?';
 				
 					$order = '`purchase`.`purchase_date`';
 					
@@ -42,7 +42,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('invoice');
 					
 					$where = 'WHERE `invoice`.`invoice_status` != \'void\'';
-					$where .= 'AND `invoice`.`invoice_date` >= ? AND `invoice`.`invoice_date` <= ?';
+					$where .= 'AND DATE(`invoice`.`invoice_date`) >= ? AND DATE(`invoice`.`invoice_date`) <= ?';
 				
 					$order = '`invoice`.`invoice_date`';
 					
@@ -51,7 +51,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('purchaseevent');
 					
 					$where = 'WHERE `purchaselog`.`purchaselog_status` != \'void\'';
-					$where .= 'AND `purchaselog`.`purchaselog_date` >= ? AND `purchaselog`.`purchaselog_date` <= ?';
+					$where .= 'AND DATE(`purchaselog`.`purchaselog_date`) >= ? AND DATE(`purchaselog`.`purchaselog_date`) <= ?';
 				
 					$order = '`purchaselog`.`purchaselog_date`';
 					
@@ -60,7 +60,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('invoiceevent');
 					
 					$where = 'WHERE `invoicelog`.`invoicelog_status` != \'void\'';
-					$where .= 'AND `invoicelog`.`invoicelog_date` >= ? AND `invoicelog`.`invoicelog_date` <= ?';
+					$where .= 'AND DATE(`invoicelog`.`invoicelog_date`) >= ? AND DATE(`invoicelog`.`invoicelog_date`) <= ?';
 				
 					$order = '`invoice`.`invoice_id` , `invoicelog`.`invoicelog_date`';
 					
