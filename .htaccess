@@ -1,0 +1,7 @@
+DirectoryIndex application.php
+ErrorDocument 404 /Error404
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /application.php [L]
