@@ -1,2 +1,0 @@
-[Mon Oct 24 10:30:41.336554 2016] [:error] [pid 27130] [client 10.0.2.2:56751] PHP Warning:  require_once(config/config.inc.php): failed to open stream: No such file or directory in /var/www/dotadmin/3.0/site/inventinvoice/application.php on line 5
-[Mon Oct 24 10:30:41.336787 2016] [:error] [pid 27130] [client 10.0.2.2:56751] PHP Fatal error:  require_once(): Failed opening required 'config/config.inc.php' (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/dotadmin/3.0/site/inventinvoice/application.php on line 5
