@@ -57,8 +57,11 @@ class InvPurchaseFile extends InvFile {
 		}
 	}
 	
-	public function create($accountdata){
+	public function create(){
 		parent::create();
+		$account = $this->obj_db->getFileModel('account');
+		$account->open(1);
+		$accountdata = $account->filedata;
 		$this->filedata['taxcode_id'] = 1;
 		$this->filedata['purchase_to_company'] = $accountdata['account_company'];
 		$this->filedata['purchase_to_address1'] = $accountdata['account_address1'];

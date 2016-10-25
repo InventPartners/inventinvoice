@@ -108,18 +108,18 @@ class invFile {
 			}
 		} else if($this->id) {
 			$query_data = $this->buildUpdateFields();
-			//print_r($query_data);
-			$query = 'UPDATE `' . $this->config->table . '` SET ' . $query_data['fields'] . ' WHERE `' . $this->config->pri_key . '` = ?'; 
-			//echo $query;
-			$params = array();
-			$params = $query_data['data'];
-			$params[] = $this->id;
-			if($this->obj_db->prepareAndDoQuery($query , $params)){
-				return true;
+			if(count($query_data['data']) > 0){
+				$query = 'UPDATE `' . $this->config->table . '` SET ' . $query_data['fields'] . ' WHERE `' . $this->config->pri_key . '` = ?'; 
+				$params = array();
+				$params = $query_data['data'];
+				$params[] = $this->id;
+				if($this->obj_db->prepareAndDoQuery($query , $params)){
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				// Updates which make no change are still ok...
 				return true;
-				//return false;
 			}
 		}
 		return true;	

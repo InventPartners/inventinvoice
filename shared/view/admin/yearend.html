@@ -1,0 +1,19 @@
+<h2>Year End</h2>
+<form method="post" action="/admin/yearend">
+<p><strong>Date:</strong>
+<label for="yearend_from_d" class="hidden_label">Day:</label><input type="text" id="yearend_from_d" name="yearend_from_d" class="day" maxlength="2" value="<?php echo $this->arr_input['yearend_from_d'] ?>"/> 
+<label for="yearend_from_m" class="hidden_label">Month</label><input type="text" id="yearend_from_m"  name="yearend_from_m" class="month" maxlength="2" value="<?php echo $this->arr_input['yearend_from_m'] ?>"/>
+<label for="yearend_from_y" class="hidden_label">Year</label><input type="text" id="yearend_from_y" name="yearend_from_y" class="year" maxlength="4" value="<?php echo $this->arr_input['yearend_from_y'] ?>"/>
+to
+<label for="yearend_to_d" class="hidden_label">Day:</label><input type="text" id="yearend_to_d" name="yearend_to_d" class="day" maxlength="2" value="<?php echo $this->arr_input['yearend_to_d'] ?>"/> 
+<label for="yearend_to_m" class="hidden_label">Month</label><input type="text" id="yearend_to_m"  name="yearend_to_m" class="month" maxlength="2" value="<?php echo $this->arr_input['yearend_to_m'] ?>"/>
+<label for="yearend_to_y" class="hidden_label">Year</label><input type="text" id="yearend_to_y" name="yearend_to_y" class="year" maxlength="4" value="<?php echo $this->arr_input['yearend_to_y'] ?>"/>
+</p>
+
+<h3>Reports:</h3>
+<p>The following year end reports are available for download for the selected date period</p>
+<button class="btn" type="submit" name="dataset" value="invoice">Sales</button>
+<button class="btn" type="submit" name="dataset" value="purchase">Purchases</button>
+<button class="btn" type="submit" name="dataset" value="invoiceevent">Sales Paid</button>
+<button class="btn" type="submit" name="dataset" value="purchaseevent">Purchases Paid</button>
+</form>

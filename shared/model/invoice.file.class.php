@@ -61,8 +61,11 @@ class InvInvoiceFile extends InvFile {
 		}
 	}
 	
-	public function create($accountdata){
+	public function create(){
 		parent::create();
+		$account = $this->obj_db->getFileModel('account');
+		$account->open(1);
+		$accountdata = $account->filedata;
 		$this->filedata['taxcode_id'] = $accountdata['taxcode_id'];
 		$this->filedata['invoice_from_company'] = $accountdata['account_company'];
 		$this->filedata['invoice_from_address1'] = $accountdata['account_address1'];

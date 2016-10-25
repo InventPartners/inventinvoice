@@ -1,0 +1,73 @@
+
+<div style="width: 200px; float: left">
+	<h2>Repeat Invoices</h2>
+</div>
+<div style="width: 400px; float: right; text-align: right;">
+	<p>
+	<?php if($this->arr_input['status'] == 'stopped'){ ?>	
+		<a href="/admin/repeatinvoices/" class="btn">Show Active</a>
+	<?php }  else { ?>
+		<a href="/admin/repeatinvoices/?status=stopped" class="btn">Show Stopped</a>
+	<?php } ?>
+		<a href="/admin/repeatinvoices/?status=due" class="btn">Show Due</a>
+		<a href="/admin/editrepeatinvoice/new" class="btn btn-success">New</a>
+	</p>
+</div>
+<div style="clear: both"></div>
+
+<?php
+$this->getWidget('result_count');
+$this->getWidget('pagination');
+?>
+
+<table class="table table-condensed table-striped">
+	<thead>
+		<tr>
+			<th>Contact Name</th>
+			<th>Last Invoice</th>
+			<th>Next Date</th>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+<?php
+	for($i=0; $i<count($this->results); $i++){
+ ?>
+		<tr <?php if($i % 2 != 0){echo 'class="alt"';} ?>>
+			<td><?php
+			if(isset($this->results[$i]['contact_company']) && $this->results[$i]['contact_company']){
+				echo htmlspecialchars($this->results[$i]['contact_company']);
+			} else if ($this->results[$i]['contact_firstname'] || $this->results[$i]['contact_lastname']) {
+				echo htmlspecialchars($this->results[$i]['contact_firstname'] . ' ' . $this->results[$i]['contact_lastname']);
+			} else {
+				echo $this->results[$i]['contact_id']; 
+			}
+			?></td>
+			<td><?php 
+			if($this->results[$i]['last_invoice_id']) {
+				echo '<a href="/admin/invoice/' . $this->results[$i]['last_invoice_id'] . '">';
+				echo htmlspecialchars($this->results[$i]['last_invoice_id']); 
+				echo '</a>';
+			} else {
+				echo '&nbsp;';
+			}
+			?></td>
+			<td><?php echo sqlDateTimeToDisplayDate($this->results[$i]['next_date']); ?></td>
+			<?php if($this->arr_input['status'] == 'stopped'){ ?>
+				<td><a href="/admin/repeatinvoices/?repeatinvoice_start=<?php echo $this->results[$i]['repeatinvoice_id']; ?>&amp;status=stopped" class="btn">Start</a></td>
+			<?php } else { ?>
+				<td><a href="/admin/repeatinvoices/?repeatinvoice_stop=<?php echo $this->results[$i]['repeatinvoice_id']; ?>" class="btn btn-danger">Stop</a></td>
+			<?php } ?>
+			<td><a href="/admin/editrepeatinvoice/<?php echo $this->results[$i]['repeatinvoice_id']; ?>" class="btn btn-success">View</a></td>
+		</tr>	
+<?php } ?>	
+
+	</tbody>		
+</table>	
+
+<?php
+$this->getWidget('pagination');
+?>
+	

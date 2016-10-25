@@ -49,7 +49,7 @@ class UserRequest{
 				array_shift($this->request_array);
 				// Ajax request are handled here
 				require_once(SHARED_PATH . 'ajax/ajaxcontroller.class.php');
-				//$this->loadController(AJAX_PATH , '.ajaxcontroller.class.php' , 'AjaxController');
+				$this->loadController(AJAX_PATH , '.ajaxcontroller.class.php' , 'AjaxController');
 			} else {
 				$this->loadController(CONTROLLER_PATH , '.controller.class.php' , 'Controller');
 			}

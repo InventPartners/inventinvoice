@@ -1,0 +1,41 @@
+<h3>Map headings</h3>
+<form method="post" action="<?php echo $this->submit_action?>" class="stdform" />
+<input type="hidden" name="tmp_file" value="<?php echo $this->tmp_file ?>" />
+<input type="hidden" name="import" value="import" />
+<?php
+
+	if(isset($this->show_manufacturer_selector) && $this->show_manufacturer_selector){
+		$this->setInputValue('manufacturer_id');
+		$this->obj_db->query("SELECT * FROM manufacturer ORDER BY manufacturer_name");
+		$arr_manufacturers = $this->obj_db->fetchAll();
+		echo '<label>Manufacturer</label>';
+		echo '<select name="manufacturer_id" id="manufacturers">';
+		//echo '<option value="">Any</option>';
+		for($i=0; $i<count($arr_manufacturers); $i++){
+			echo '<option value="' . $arr_manufacturers[$i]['manufacturer_id'] . '"';
+			if($arr_manufacturers[$i]['manufacturer_id'] == $this->arr_input['manufacturer_id']){
+				echo ' selected="selected"';
+			}
+			echo '>' . $arr_manufacturers[$i]['manufacturer_name'] . '</option>';		
+		}
+		echo'</select>';
+	}
+	
+	for($i=0; $i<count($this->headings); $i++){
+		if($this->headings[$i]){
+			echo '<label>' . $this->headings[$i] . '</label>';
+			echo '<select name="heading_' . $i . '">';
+			echo '<option value="">Don\'t import</option>';
+			for($f=0; $f<count($this->config_fields); $f++){
+				if(!in_array($this->config_fields[$f]['Field'] , array_keys($this->hard_mapping))){
+					echo '<option value="' . $this->config_fields[$f]['Field'] . '">' . $this->config_fields[$f]['Field'] . '</option>';
+				}
+			}
+			echo '<select>';
+		}
+	}
+?>
+<div>
+<input type="submit" name="submit" value="Import Data" class="submit" />
+</div>
+</form>

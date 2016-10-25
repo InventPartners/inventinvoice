@@ -1,5 +1,5 @@
 <?php
-define('SQL_DUMP_FILE', 'db.sql');
+define('SQL_DUMP_FILE', 'shared/install/db.sql');
 define('CONFIG_FILE_PATH', 'config/config.inc.php');
 
 function get_install_root() {
@@ -85,7 +85,7 @@ if(is_file(CONFIG_FILE_PATH)){
     if(empty($errors)) {
         
         // try connect to DB
-        $conn = new mysqli(
+        @$conn = new mysqli(
             $input_vals['database_host'],
             $input_vals['database_user'],
             $input_vals['database_pwd'],
@@ -160,9 +160,9 @@ if(is_file(CONFIG_FILE_PATH)){
 
             }
             
+       		$conn->close();
+            
         }  
-        
-        $conn->close();
         
     }
  

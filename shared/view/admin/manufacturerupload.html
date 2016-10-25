@@ -1,0 +1,60 @@
+<script type="text/javascript" src="/scripts/swfobject.js"></script>
+<script type="text/javascript" src="/scripts/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	  $('#image').uploadify({
+		'uploader'  : '/layout/uploadify.swf',
+		//'script'    : '/ajax/upload/',
+		'script'    : '/ajax/admin/upload/',
+		'scriptData' : {
+			'PHPSESSID' : '<?php echo session_id() ?>' ,
+			'type' : 'csv'
+		} ,
+		'cancelImg' : '/layout/cancel.png',
+		'buttonImg'	: '/layout/browse.gif',
+		'fileExt'	: '*.jpg;*.gif;*.png',
+		'folder'    : '',
+		'auto'      : false,
+		'onComplete' : function(event, ID, fileObj, response, data) {
+			//alert(fileObj.name);
+			//setField('/media/' + fileObj.name);
+			window.location = "http://admin.combiovensdirect.inventpartners.com/admin/productupload/?tmp_file=" + fileObj.name;
+		}
+	  });
+	});
+</script>
+<div id="content">
+	<div class="wrapper">
+		<h2>Accessories</h2>
+		<?php
+		if($this->imported){
+		
+			echo '<p><strong>' . $this->imported . ' records imported</strong></p>';
+			echo '<p><a href="/admin/productaccessories/">Continue</a></p>';
+		
+		} else {
+		
+			if(isset($this->headings))
+			{
+				$this->submit_action = '/admin/productupload/';
+				$this->tmp_file = $this->arr_input['tmp_file'];
+				$this->show_manufacturer_selector = true;
+				$this->config_fields = $this->import_config->fields;
+				$this->getWidget('csvfieldmapping');
+			} else {
+			?>
+		
+			<h3>Upload a CSV File</h3>
+				<form name="uploadform" id="myForm" method="post" enctype="multipart/form-data" action="/ajax/admin/upload/">
+				<input type="hidden" id="submitting" name="submitting" value="yes" />
+				<!--<input type="hidden" name="PHPSESSID" value="<?php echo session_id() ?>" />-->
+				<!--<label for="image_name">Image Name:</label>-->
+				<!--<input type='text' style='width: 300px;' name='image_name' id='image_name' value=''>-->
+				<input type="hidden" name="type" value="image">
+				<input id="image" name="image" type="file" />
+				<input onclick="$('#image').uploadifyUpload()" type="button" class="box_button" value="Submit >>" />
+				<!--<input type="submit" name="submit" value="test" />-->
+				<p>Acceptable formats: JPEG, GIF, PNG. Maximum Size: 2MB.</p>
+			</form>
+			
+		<?php } } ?>

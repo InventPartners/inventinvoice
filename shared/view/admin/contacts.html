@@ -1,0 +1,50 @@
+
+<div style="width: 200px; float: left">
+	<h2>Contacts</h2>
+</div>
+<div style="width: 200px; float: right; text-align: right;">
+	<p><a href="/admin/contact/new" class="btn btn-success">New Contact</a></p>
+</div>
+<div style="clear: both"></div>
+
+<form method="get" class="form-search">
+	<input type="text" name="q" value="<?php echo htmlspecialchars($this->arr_input['q']) ?>" class="input-medium search-query" />
+	<input type="submit" name="submit" value="Search" class="btn" />
+</form>
+
+<?php 
+$this->getWidget('result_count');
+$this->getWidget('pagination'); 
+?>
+
+<table class="table table-condensed table-striped">
+		<thead>
+		<tr>
+			<th>Company</th>
+			<th>Name</th>
+			<th>Postcode</th>
+			<th>Created</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	
+<?php
+for($i=0; $i<count($this->results); $i++){ ?>
+	<tr <?php if($i % 2 != 0){echo 'class="alt"';} ?>>
+		<td><?php echo htmlspecialchars($this->results[$i]['contact_company']); ?></td>
+		<td><?php echo htmlspecialchars($this->results[$i]['contact_firstname']); ?> <?php echo htmlspecialchars($this->results[$i]['contact_lastname']); ?></td>
+		<td><?php echo htmlspecialchars($this->results[$i]['contact_postcode']); ?></td>
+		<td><?php echo sqlDateTimeToDisplayDate($this->results[$i]['created']); ?></td>
+		<td style="width: 55px"><a onClick="return confirmDelete(this)" href="/admin/deletecontact/<?php echo $this->results[$i]['contact_id']; ?>" class="btn btn-danger">Delete</a></td>
+		<td style="width: 50px"><a href="/admin/contact/<?php echo $this->results[$i]['contact_id']; ?>" class="btn btn-success">View</a></td>
+	</tr>	
+<?php } ?>	
+	</tbody>
+</table>	
+
+<?php
+$this->getWidget('pagination');
+?>
+	

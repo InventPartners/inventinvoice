@@ -1,0 +1,65 @@
+<style type="text/css">
+	.editform label{
+		display: block;
+		clear: left;
+	}
+</style>
+
+<h2><?php echo htmlspecialchars($this->view_title); ?></h2>
+
+<?php 
+
+if(isset($this->saved)){
+	if($this->saved){
+		echo '<div class="alert alert-success">File saved</div>';
+	} else {
+	
+	}
+} 
+
+?>
+
+<form method="post" action="<?php echo $this->submit_action?>" class="stdform">
+	<input type="hidden" name="save" value="save" />
+	<!--<input type="hidden" name="account_id" id="account_id" value="<?php echo htmlspecialchars($this->account->filedata['account_id'])?>" />-->
+
+	<div class="formcol">
+		<h3>Company Details</h3>
+		<label>Company Name</label>
+		<input type="text" name="account_company" id="account_company" value="<?php echo htmlspecialchars($this->account->filedata['account_company'])?>"  />
+		
+		<label>Address</label>
+		<input type="text" name="account_address1" id="account_address1" value="<?php echo htmlspecialchars($this->account->filedata['account_address1'])?>" />
+		<input type="text" name="account_address2" id="account_address2" value="<?php echo htmlspecialchars($this->account->filedata['account_address2'])?>" />
+		<input type="text" name="account_address3" id="account_address3" value="<?php echo htmlspecialchars($this->account->filedata['account_address3'])?>" />
+		<input type="text" name="account_address4" id="account_address4" value="<?php echo htmlspecialchars($this->account->filedata['account_address4'])?>" />
+		<input type="text" name="account_address5" id="account_address5" value="<?php echo htmlspecialchars($this->account->filedata['account_address5'])?>" />
+	
+		<label>Postcode</label>
+		<input type="text" name="account_postcode" id="account_postcode" value="<?php echo htmlspecialchars($this->account->filedata['account_postcode'])?>" />
+		<label>Country</label>
+		<select name="country_code" id="country_code">
+			<option value=""></option>
+		<?php foreach($this->countrycodes as $countrycode) { ?>
+			<option value="<?php echo htmlspecialchars($countrycode['country_code']) ?>"<?php 
+			if($this->account->filedata['country_code'] == $countrycode['country_code']) {
+				echo ' selected="selected"';
+			} ?>><?php echo htmlspecialchars($countrycode['country_name'])?></option>
+		<?php } ?>
+		</select>
+		<label>VAT Number</label>
+		<input type="text" name="account_vatnumber" id="account_vatnumber" value="<?php echo htmlspecialchars($this->account->filedata['account_vatnumber'])?>" />
+	</div>
+	
+	<div class="formcol">
+		<h3>Contact Person</h3>
+		<label>First Name</label>
+		<input type="text" name="account_firstname" id="account_firstname" value="<?php echo htmlspecialchars($this->account->filedata['account_firstname'])?>" />
+		<label>Last Name</label>
+		<input type="text" name="account_lastname" id="account_lastname" value="<?php echo htmlspecialchars($this->account->filedata['account_lastname'])?>" />
+		<label>Contact Email</label>
+		<input type="text" name="account_email" id="account_email" value="<?php echo htmlspecialchars($this->account->filedata['account_email'])?>" />
+	</div>	
+	<div class="clear"> </div>
+	<button type="submit" name="submit" class="btn btn-success" />Save</button>
+</form>

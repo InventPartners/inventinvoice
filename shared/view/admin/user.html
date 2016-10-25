@@ -1,0 +1,40 @@
+<style type="text/css">
+	.editform label{
+		display: block;
+		clear: left;
+	}
+</style>
+
+<h2>Update your login details</h2>
+<p>Update your username and password here.</p>
+<h3>Username</h3>
+<?php 
+if(isset($this->username_updated) && $this->username_updated){
+	echo '<div class="alert alert-success">Username updated</div>';
+} 
+?>
+<form action="/admin/user" method="post" class="stdform">
+	<input type="hidden" name="update" value="username" />
+	<label>Email</label>
+	<input type="text" id="form_usernamename" name="username" value="<?php echo htmlspecialchars($this->contact->filedata['username']) ?>" />
+	<button type="submit" name="submit" class="btn btn-success" />Save</button>
+</form>
+<h3 style="margin-top: 20px">Password</h3>
+<?php 
+if(isset($this->password_updated) && $this->password_updated){
+	echo '<div class="alert alert-success">Password updated</div>';
+} 
+if(isset($this->password_error) && $this->password_error){
+	echo '<div class="alert alert-error">' . htmlspecialchars($this->password_error) . '</div>';
+} 
+?>
+<form action="/admin/user" method="post" class="stdform">
+	<input type="hidden" name="update" value="password" />
+	<label>Current Password</label>
+	<input type="password" id="form_password" name="curpassword" value=""/>
+	<label>New Password</label>
+	<input type="password" id="form_newpassword" name="newpassword" value=""/>
+	<label>Confirm New Password</label>
+	<input type="password" id="form_newpassword" name="confirmnewpassword" value=""/>
+	<button type="submit" name="submit" class="btn btn-success" />Update</button>
+</form>
