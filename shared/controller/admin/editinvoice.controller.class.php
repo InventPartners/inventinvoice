@@ -24,7 +24,7 @@ class EditinvoiceController extends InvController {
 		$this->invoice = $this->obj_db->getFileModel('invoice');
 		// Creating a new invoice
 		if($this->path_info[0] == 'new'){
-			$this->invoice->create($this->obj_session->getValue('accountdata'));
+			$this->invoice->create();
 			$this->submit_action = '/admin/editinvoice/new/';
 			if($this->arr_input['save']){
 				$this->invoice->updateFromFormData();

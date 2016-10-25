@@ -33,7 +33,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('purchase');
 					
 					$where = 'WHERE `purchase`.`purchase_status` != \'void\'';
-					$where .= 'AND `purchase`.`purchase_date` > ? AND `purchase`.`purchase_date` <= ?';
+					$where .= 'AND `purchase`.`purchase_date` >= ? AND `purchase`.`purchase_date` <= ?';
 				
 					$order = '`purchase`.`purchase_date`';
 					
@@ -42,7 +42,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('invoice');
 					
 					$where = 'WHERE `invoice`.`invoice_status` != \'void\'';
-					$where .= 'AND `invoice`.`invoice_date` > ? AND `invoice`.`invoice_date` <= ?';
+					$where .= 'AND `invoice`.`invoice_date` >= ? AND `invoice`.`invoice_date` <= ?';
 				
 					$order = '`invoice`.`invoice_date`';
 					
@@ -51,7 +51,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('purchaseevent');
 					
 					$where = 'WHERE `purchaselog`.`purchaselog_status` != \'void\'';
-					$where .= 'AND `purchaselog`.`purchaselog_date` > ? AND `purchaselog`.`purchaselog_date` <= ?';
+					$where .= 'AND `purchaselog`.`purchaselog_date` >= ? AND `purchaselog`.`purchaselog_date` <= ?';
 				
 					$order = '`purchaselog`.`purchaselog_date`';
 					
@@ -60,7 +60,7 @@ class YearendController extends InvController{
 					$list = $this->obj_db->getListModel('invoiceevent');
 					
 					$where = 'WHERE `invoicelog`.`invoicelog_status` != \'void\'';
-					$where .= 'AND `invoicelog`.`invoicelog_date` > ? AND `invoicelog`.`invoicelog_date` <= ?';
+					$where .= 'AND `invoicelog`.`invoicelog_date` >= ? AND `invoicelog`.`invoicelog_date` <= ?';
 				
 					$order = '`invoice`.`invoice_id` , `invoicelog`.`invoicelog_date`';
 					
@@ -68,17 +68,14 @@ class YearendController extends InvController{
 				
 				$list->num_results_per_page = 20000;
 				
-				$from = mktime(0, 0, 0, date($this->arr_input['yearend_from_m']), date($this->arr_input['yearend_from_d']),   date($this->arr_input['yearend_from_y']));
-				$to = mktime(0, 0, 0, date($this->arr_input['yearend_to_m']), date($this->arr_input['yearend_to_d']),   date($this->arr_input['yearend_to_y'])-1);
+				$from = mktime(0, 0, 0, intval($this->arr_input['yearend_from_m']), intval($this->arr_input['yearend_from_d']), intval($this->arr_input['yearend_from_y']));
+				$to = mktime(0, 0, 0, intval($this->arr_input['yearend_to_m']), intval($this->arr_input['yearend_to_d']), intval($this->arr_input['yearend_to_y']));
 				
 				$params_array = array();
 				$params_array[] = date('Y-m-d' , $from);
 				$params_array[] = date('Y-m-d' , $to);
 				
 				$list->getList($where , $params_array , $order, 1);
-				//$this->results = $orderlist->resultset;
-				//$this->pagination = $orderlist->pagination;
-				
 				
 				if($this->arr_input['pdf']){
 					foreach($list->resultset as $result){

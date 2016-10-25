@@ -46,7 +46,7 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 INSERT INTO `account` (`id`, `account_firstname`, `account_lastname`, `account_company`, `account_address1`, `account_address2`, `account_address3`, `account_address4`, `account_address5`, `account_postcode`, `country_code`, `account_vatnumber`, `account_email`, `taxcode_id`, `updated`)
 VALUES
-	(1, '', '', '', '', '', '', '', '', '', 'GB', '', '', 1, NOW());
+	(1, '', '', 'Demo Company', 'Address 1', '', '', '', '', 'AB12 4CD', 'GB', '', '', 1, NOW());
 
 
 

@@ -21,7 +21,7 @@ class EditpurchaseController extends InvController {
 		$this->purchase = $this->obj_db->getFileModel('purchase');
 		// Creating a new product
 		if($this->path_info[0] == 'new'){
-			$this->purchase->create($this->obj_session->getValue('accountdata'));
+			$this->purchase->create();
 			$this->submit_action = '/admin/editpurchase/new/';
 			if($this->arr_input['save']){
 				$this->purchase->updateFromFormData();
