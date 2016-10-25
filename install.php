@@ -1,65 +1,6 @@
 <?php
-
-/*
-NOTE: It would be a VERY GOOD IDEA (tm) to check that database is not already installed 
-(ie, check that there sin't already a config file) before running any of this
-*/
-
-// ask the user for their database details:
-// Hostname
-// database name
-// username
-// password
-
-// As user for their admin username and password
-
-// Test DB credentials
-
-// Run database import
-
-
-// Create admin username and password
-
-// Create a  config file, using THIS template.
-/*
-define('INSTALL_ROOT' , '');
-define('APP_PATH' , INSTALL_ROOT);
-
-define('SITE_DOMAIN' , '');
-define('SHARED_PATH' , INSTALL_ROOT . 'shared/');
-
-define('DB_HOST' , '');
-define('DB_NAME' , '');
-define('DB_USER' , '');
-define('DB_PASS' , '');
-*/
-
-// Output the config file, and instruct the user where to save it.
-
-
 define('SQL_DUMP_FILE', 'db.sql');
 define('CONFIG_FILE_PATH', 'config/config.inc.php');
-if(is_file(CONFIG_FILE_PATH)){
-	echo'<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Invent Invoice Installer</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container" style="max-width: 700px;">
-        
-        <div class="page-header">
-            <h1 class="text-center">Invent Invoice Installer</h1>  
-        </div>
-        <div class="alert alert-danger">
-        	Invent invoice is already installed!
-        </div>
-    </div>
-</body>';
-	exit;
-}
 
 function get_install_root() {
     $abs_path = __FILE__;
@@ -110,7 +51,9 @@ $view = 'form';
 $errors = array();
 $input_vals = array();
 
-if(!empty($_POST)) {
+if(is_file(CONFIG_FILE_PATH)){
+    $view = 'already_installed';
+} else if(!empty($_POST)) {
     
     // get inputs - database information
     $input_vals['database_host'] = input_post('database_host');
@@ -185,15 +128,18 @@ if(!empty($_POST)) {
                             array_push($config, 'define(\'DB_NAME\' , \'' . $input_vals['database_name'] . '\');');
                             array_push($config, 'define(\'DB_USER\' , \'' . $input_vals['database_user'] . '\');');
                             array_push($config, 'define(\'DB_PASS\' , \'' . $input_vals['database_pwd'] . '\');');
+                            
+                            $config_str = join(chr(13), $config);
                                 
                             if($fp = fopen(CONFIG_FILE_PATH, 'w')){
-                            	fwrite($fp, join(chr(13), $config));
+                            	fwrite($fp, $config_str);
                             	fclose($fp);
+                                $view = 'install_complete';
                             } else {
-                            
+                                $view = 'no_write_permission';
                             }
                             
-                            $view = 'install_complete';
+                            
                             
                             
                         } else {
@@ -281,14 +227,27 @@ if(!empty($_POST)) {
                 </div>
             </div>
             
-            <input type="submit" value="Install" class="btn btn-lg btn-block btn-primary" /> 
+            <input type="submit" value="Install" class="btn btn-lg btn-block btn-primary" style="margin-bottom:100px;" /> 
             
         </form>
         
         <?php elseif($view == 'install_complete'): ?>
         <div class="alert alert-success">
             <strong>Install complete!</strong> You may now <a href="/admin">log in</a> with the admin account you just created.
-        </div>        
+        </div>
+        <?php elseif($view == 'already_installed'): ?>
+        <div class="alert alert-warning">
+        	Invent invoice is already installed!
+        </div>   
+        <?php elseif($view == 'no_write_permission'): ?>
+        <div class="alert alert-danger">
+        	<strong>Failed to write config file</strong> (permission denied). Please copy the code below and save to <em>config/config.inc.php</em>
+        </div>
+        <pre>
+            <code>
+<?php echo htmlentities($config_str); ?>
+            </code>
+        </pre>        
         <?php endif; ?>
 
     </div>
