@@ -1,6 +1,17 @@
 # inventinvoice
 Fabulous, functional and FREE invoicing software
+By Invent Partners [http://inventpartners.com]
 
+### LICENSE
+
+> Copyright 2016 Invent Partners
+> http://www.inventpartners.com
+>
+> Licensed under an MIT style license
+>
+> http://www.inventpartners.com/mit-license
+
+## Installation
 1. Clone the git repository at  https://github.com/InventPartners/inventinvoice to the desired location on your web server.
   * `git clone https://github.com/InventPartners/inventinvoice.git`
 2. Create a database for InventInvoice on your web server as well as a user who has all privileges for accessing and modifying it.
